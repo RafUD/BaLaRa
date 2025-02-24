@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6a9ff50dd48e67e40806c4af79595d61
+guid: 1dc7c64f6e2c0f34db77789d96ffb7fb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6905922259874023411
-    second: uipack_rpg_sheet_0
+      213: -1008071281473087207
+    second: Screenshot 2025-02-24 160112_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -178,23 +178,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: white_button
+      name: Screenshot 2025-02-24 160112_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 190
-        height: 512
+        width: 1210
+        height: 546
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 463, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d08feb53b4c3920a0800000000000000
-      internalID: -6905922259874023411
+      spriteID: 919168fa28c9202f0800000000000000
+      internalID: -1008071281473087207
       vertices: []
       indices: 
       edges: []
@@ -203,7 +203,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d141302aafb698048bf820ad4186a064
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -213,7 +213,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      white_button: -6905922259874023411
+      Screenshot 2025-02-24 160112_0: -1008071281473087207
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
