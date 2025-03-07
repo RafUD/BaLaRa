@@ -42,9 +42,7 @@ public class AudioManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name.Equals("Niveau 1"))
         {
-            DontDestroyOnLoad(gameObject);
             Play("JeuAmbience");
-
         }
     }
 

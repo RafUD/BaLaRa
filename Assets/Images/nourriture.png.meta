@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 39c58d54aae13de4a82e4775d4c9c8ea
+guid: ff8020d4c857a2c499925c5cca5e535a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8878088185706026076
-    second: pause_0
+      213: 5122341632822822760
+    second: nourriture_0
+  - first:
+      213: 584572261084545296
+    second: nourriture_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pause_0
+      name: nourriture_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 38
         y: 0
-        width: 800
-        height: 800
+        width: 180
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +144,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4ab666e45d1bac480800000000000000
-      internalID: -8878088185706026076
+      spriteID: 86749926396361740800000000000000
+      internalID: 5122341632822822760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nourriture_1
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 0
+        width: 267
+        height: 497
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 011cd7fcf51dc1800800000000000000
+      internalID: 584572261084545296
       vertices: []
       indices: 
       edges: []
@@ -160,8 +185,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      pause_0: -8878088185706026076
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
