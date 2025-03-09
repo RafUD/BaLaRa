@@ -1077,18 +1077,6 @@ PrefabInstance:
       propertyPath: isEnnemy
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_BodyType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7237327834267038746, guid: 609fc8822f3891c4886883a2762f94ff, type: 3}
       propertyPath: m_Name
       value: Batiment 6
@@ -1326,6 +1314,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1255289446039279246, guid: 763080e1c3df85843a9fa45d4fefd819, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 20.090088
+      objectReference: {fileID: 0}
+    - target: {fileID: 2129364557505480514, guid: 763080e1c3df85843a9fa45d4fefd819, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476775577382225915, guid: 763080e1c3df85843a9fa45d4fefd819, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4936333117431652665, guid: 763080e1c3df85843a9fa45d4fefd819, type: 3}
       propertyPath: m_Name
       value: HUD
@@ -1553,10 +1553,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: m_BodyType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3160093665466637624, guid: 6373b7884afd9674186f4e26bd93b65c, type: 3}
       propertyPath: m_Name
       value: Soldat

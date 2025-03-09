@@ -15,10 +15,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Niveau 3");
     }
 
-    public void SortirJeuMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
+
 
     public void QuitGame()
     {

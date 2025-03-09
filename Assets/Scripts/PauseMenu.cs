@@ -7,6 +7,13 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public GameObject pauseIcon;
+    private string currentScene; 
+
+
+    void Start()
+    {
+        currentScene = SceneManager.GetActiveScene().name;
+    }
 
     // Update is called once per frame
     void Update()
@@ -16,10 +23,12 @@ public class PauseMenu : MonoBehaviour
         {
             if (GameIsPaused)
             {
+                pauseIcon.SetActive(true);
                 Resume();
             }
             else
             {
+                pauseIcon.SetActive(false);
                 Pause();
             }
         }
@@ -27,7 +36,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseIcon.SetActive(true);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
         GameIsPaused = false;   
@@ -35,7 +43,6 @@ public class PauseMenu : MonoBehaviour
 
     void Pause()
     {
-        pauseIcon.SetActive(false);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
@@ -43,11 +50,22 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        PlayerPrefs.SetString("PreviousScene", currentScene);
+
         SceneManager.LoadScene("Menu");
     }
 
     public void LoadTutoriel()
     {
+        PlayerPrefs.SetString("PreviousScene", currentScene);
 
+        SceneManager.LoadScene("Tutoriel");
+    }
+
+    public void ResumeFromTutoriel()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(currentScene);
     }
 }
