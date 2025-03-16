@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     [SerializeField] Slider volumeSlider;
     public static AudioManager instance;
+    public JeuFinni jeu;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -40,7 +41,15 @@ public class AudioManager : MonoBehaviour
     {
 
 
-        if (SceneManager.GetActiveScene().name.Equals("Niveau 1"))
+        if (SceneManager.GetActiveScene().name.Equals("Menu"))
+        {
+            Play("JeuMenu");
+        }
+        if (SceneManager.GetActiveScene().name.Equals("Jeu Finni"))
+        {
+            Play("JeuFinni");   
+        }
+        if (SceneManager.GetActiveScene().name.StartsWith("Niveau") || SceneManager.GetActiveScene().name.Equals("Tutoriel"))
         {
             Play("JeuAmbience");
         }

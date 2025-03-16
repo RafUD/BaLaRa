@@ -13,7 +13,7 @@ public class Tutoriel : MonoBehaviour
         }
         else
         {
-            previousScene = "Menu"; 
+            /*previousScene = "Menu"; */
         }
 
         Time.timeScale = 0f;
@@ -24,5 +24,9 @@ public class Tutoriel : MonoBehaviour
         Time.timeScale = 1f;
 
         SceneManager.LoadScene(previousScene);
+    }
+    public void Menu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

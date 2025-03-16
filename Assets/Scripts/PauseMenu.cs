@@ -23,12 +23,10 @@ public class PauseMenu : MonoBehaviour
         {
             if (GameIsPaused)
             {
-                pauseIcon.SetActive(true);
                 Resume();
             }
             else
             {
-                pauseIcon.SetActive(false);
                 Pause();
             }
         }
@@ -36,13 +34,15 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        pauseIcon.SetActive(true);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
         GameIsPaused = false;   
     }
 
-    void Pause()
+    public void Pause()
     {
+        pauseIcon.SetActive(false);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
@@ -51,6 +51,7 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         PlayerPrefs.SetString("PreviousScene", currentScene);
+        Resume();
 
         SceneManager.LoadScene("Menu");
     }

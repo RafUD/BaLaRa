@@ -1,10 +1,13 @@
 using UnityEngine;
-using TMPro;  
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TimerScript : MonoBehaviour
 {
     public float TimeLeft;
     public bool TimerOn = false;
+
+    private JeuFinni jeu;
 
     public TextMeshProUGUI TimerTxt; 
 
@@ -27,6 +30,12 @@ public class TimerScript : MonoBehaviour
                 Debug.Log("Time is UP!");
                 TimeLeft = 0;
                 TimerOn = false;
+                if (jeu != null)
+                {
+                    jeu.jeuGagne = false;
+                }
+
+                SceneManager.LoadScene("Jeu Finni");
             }
         }
     }

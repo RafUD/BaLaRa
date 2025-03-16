@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7283426203931250820}
   - component: {fileID: 4004160899883349989}
   - component: {fileID: -9155122486064271992}
+  - component: {fileID: 4465146078252034452}
   m_Layer: 6
   m_Name: Batiment 4
   m_TagString: Untagged
@@ -167,3 +168,30 @@ MonoBehaviour:
   allyColor: {r: 0, g: 0, b: 1, a: 1}
   enemyColor: {r: 1, g: 0, b: 0, a: 1}
   isAlly: 0
+--- !u!50 &4465146078252034452
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261495120442422999}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
