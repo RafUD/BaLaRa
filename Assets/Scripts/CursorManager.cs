@@ -8,8 +8,7 @@ public class CursorManager : MonoBehaviour
     public AudioClip clickSound;
 
     public AudioSource audioSource;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         if (customCursor != null)
