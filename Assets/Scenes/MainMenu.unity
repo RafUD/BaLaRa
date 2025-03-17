@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 105684006}
   - component: {fileID: 105684005}
   - component: {fileID: 105684008}
+  - component: {fileID: 105684009}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -521,8 +522,10 @@ MonoBehaviour:
   - {fileID: 7370094255295709363, guid: 1a37b3ca6311d2a41bf1301c139bd612, type: 3}
   - {fileID: 5840276060741184443, guid: 54e36e93bdbcfbf4e90c436415de4012, type: 3}
   - {fileID: 5840276060741184443, guid: 3ce2e3112a1e13a4f83d5354939a1bd8, type: 3}
+  - {fileID: 217618662991914183, guid: b47b56560ae47ba4b84208c5f05adfdd, type: 3}
   - {fileID: 261495120442422999, guid: 5c08038b2405c2e4ba95dfb3889845ca, type: 3}
   - {fileID: 261495120442422999, guid: 2c14b1f2dc6cc504ca8ac8e7f6d9aedd, type: 3}
+  - {fileID: 95815571849930856, guid: 1af05298f93197b459c864a186eca6c2, type: 3}
   - {fileID: 4059044127841808868, guid: 25f7cddd0f05b484298e46a78865f89d, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
@@ -541,6 +544,12 @@ MonoBehaviour:
   timeInterpolationGui: 0
   playerBasePrefab: {fileID: 3811720651201778518, guid: 9021953deec7ae24389c2287e5213d12, type: 3}
   soldierPrefab: {fileID: 3160093665466637624, guid: 6373b7884afd9674186f4e26bd93b65c, type: 3}
+  hudPrefab: {fileID: 217618662991914183, guid: b47b56560ae47ba4b84208c5f05adfdd, type: 3}
+  cameraPrefab: {fileID: 95815571849930856, guid: 1af05298f93197b459c864a186eca6c2, type: 3}
+  playerOneBasePosition: {x: -14.58118, y: -4.860315, z: 0.1064779}
+  playerTwoBasePosition: {x: 16.65, y: 3.09, z: 0.1064779}
+  playerOneSoldierPosition: {x: -12.54218, y: -4.945228, z: 0.07739695}
+  playerTwoSoldierPosition: {x: 14.613, y: 1.868, z: 0.07739695}
 --- !u!4 &105684007
 Transform:
   m_ObjectHideFlags: 0
@@ -578,6 +587,14 @@ MonoBehaviour:
       m_Calls: []
   secretHandshake: 6872750994249754245
   networkManagerRTS: {fileID: 105684006}
+--- !u!81 &105684009
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105684004}
+  m_Enabled: 1
 --- !u!1 &124724556
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,7 +5233,6 @@ GameObject:
   - component: {fileID: 2110456686}
   - component: {fileID: 2110456685}
   - component: {fileID: 2110456687}
-  - component: {fileID: 2110456684}
   - component: {fileID: 2110456688}
   m_Layer: 0
   m_Name: Main Camera
@@ -5225,14 +5241,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2110456684
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2110456683}
-  m_Enabled: 1
 --- !u!20 &2110456685
 Camera:
   m_ObjectHideFlags: 0

@@ -1,34 +1,43 @@
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class NetworkManagerRTS : NetworkManager
 {
     public GameObject playerBasePrefab;
     public GameObject soldierPrefab;
+    public GameObject hudPrefab; // Assign HUD prefab here
 
-    private Vector3[] basePositions = { new Vector3(-11, -5, 0), new Vector3(15, 5, 0) };
-    private Vector3[] soldierPositions = { new Vector3(-9, -5, 0), new Vector3(13, 4, 0) };
+    public Vector3 playerOneBasePosition;
+    public Vector3 playerTwoBasePosition;
+    public Vector3 playerOneSoldierPosition;
+    public Vector3 playerTwoSoldierPosition;
 
     private int readyPlayers = 0;
     private bool gameStarted = false;
 
-    [System.Obsolete]
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        base.OnServerAddPlayer(conn);
-        readyPlayers++;
+        if (conn.identity != null)
+        {
+            Debug.LogWarning($"[OnServerAddPlayer] Skipping duplicate player creation for connection {conn.connectionId}");
+            return;
+        }
 
-        Debug.Log($"Player joined. Current players: {readyPlayers}");
+        Debug.Log($"[OnServerAddPlayer] Adding player for connection {conn.connectionId}");
 
-        // If two players are connected, signal the game to start
-        if (readyPlayers == 2 && !gameStarted)
+        GameObject player = Instantiate(playerPrefab);
+        NetworkServer.AddPlayerForConnection(conn, player);
+
+        Debug.Log($"[OnServerAddPlayer] Player joined. Current players: {NetworkServer.connections.Count}");
+
+        if (NetworkServer.connections.Count == 2 && !gameStarted)
         {
             gameStarted = true;
-            FindObjectOfType<MainMenu>().OnSecondPlayerConnected();
+            FindObjectOfType<MainMenu>()?.OnSecondPlayerConnected();
         }
     }
 
-    [System.Obsolete]
     public override void OnServerSceneChanged(string sceneName)
     {
         base.OnServerSceneChanged(sceneName);
@@ -36,32 +45,51 @@ public class NetworkManagerRTS : NetworkManager
         if (sceneName.StartsWith("Niveau") && readyPlayers == 2)
         {
             Debug.Log("Both players are ready, starting the game...");
-            StartGame();
+            Invoke(nameof(StartGame), 1.0f);
         }
     }
 
     private void StartGame()
     {
-        Debug.Log("Spawning player bases and soldiers...");
+        Debug.Log("Spawning player bases, soldiers...");
 
-        for (int i = 0; i < readyPlayers; i++)
+        int playerIndex = 0;
+
+        foreach (var conn in NetworkServer.connections.Values)
         {
-            if (!NetworkServer.connections.ContainsKey(i))
+            if (conn.identity == null)
             {
-                Debug.LogError($"Connection {i} not found!");
+                Debug.LogWarning($"Skipping player {conn.connectionId}: NetworkIdentity is null or destroyed.");
                 continue;
             }
 
-            NetworkConnectionToClient conn = NetworkServer.connections[i];
+            Vector3 basePosition = (playerIndex == 0) ? playerOneBasePosition : playerTwoBasePosition;
+            Vector3 soldierPosition = (playerIndex == 0) ? playerOneSoldierPosition : playerTwoSoldierPosition;
 
-            GameObject playerBase = Instantiate(playerBasePrefab, basePositions[i], Quaternion.identity);
+            GameObject playerBase = Instantiate(playerBasePrefab, basePosition, Quaternion.identity);
             NetworkServer.Spawn(playerBase, conn);
+            Debug.Log($"Spawned player base for {conn.connectionId} at {basePosition}");
 
-            GameObject soldier = Instantiate(soldierPrefab, soldierPositions[i], Quaternion.identity);
+            GameObject soldier = Instantiate(soldierPrefab, soldierPosition, Quaternion.identity);
             NetworkServer.Spawn(soldier, conn);
+            Debug.Log($"Spawned soldier for {conn.connectionId} at {soldierPosition}");
+
+            playerIndex++;
         }
     }
 
+    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    {
+        Debug.Log($"Player disconnected: {conn.connectionId}");
+
+        if (conn.identity != null)
+        {
+            NetworkServer.Destroy(conn.identity.gameObject);
+            Debug.Log($"Destroyed player object for connection {conn.connectionId}");
+        }
+
+        base.OnServerDisconnect(conn);
+    }
 
     public void CheckIfBothPlayersAreReady()
     {

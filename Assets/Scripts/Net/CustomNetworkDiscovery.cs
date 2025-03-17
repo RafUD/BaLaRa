@@ -5,13 +5,6 @@ using System;
 using System.Net;
 using kcp2k;
 
-using UnityEngine;
-using Mirror;
-using Mirror.Discovery;
-using System;
-using System.Net;
-using kcp2k;
-
 public class CustomNetworkDiscovery : NetworkDiscoveryBase<ServerRequest, ServerResponse>
 {
     public NetworkManagerRTS networkManagerRTS;
