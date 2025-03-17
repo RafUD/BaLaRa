@@ -20,7 +20,7 @@ public class NetworkManagerRTS : NetworkManager
 
         Debug.Log($"Player joined. Current players: {readyPlayers}");
 
-        // Only start the game if both players are connected
+        // If two players are connected, signal the game to start
         if (readyPlayers == 2 && !gameStarted)
         {
             gameStarted = true;
@@ -29,12 +29,29 @@ public class NetworkManagerRTS : NetworkManager
     }
 
     [System.Obsolete]
-    public void StartGame()
+    public override void OnServerSceneChanged(string sceneName)
     {
-        Debug.Log("Starting game, spawning player bases and soldiers...");
+        base.OnServerSceneChanged(sceneName);
+
+        if (sceneName.StartsWith("Niveau") && readyPlayers == 2)
+        {
+            Debug.Log("Both players are ready, starting the game...");
+            StartGame();
+        }
+    }
+
+    private void StartGame()
+    {
+        Debug.Log("Spawning player bases and soldiers...");
 
         for (int i = 0; i < readyPlayers; i++)
         {
+            if (!NetworkServer.connections.ContainsKey(i))
+            {
+                Debug.LogError($"Connection {i} not found!");
+                continue;
+            }
+
             NetworkConnectionToClient conn = NetworkServer.connections[i];
 
             GameObject playerBase = Instantiate(playerBasePrefab, basePositions[i], Quaternion.identity);
@@ -45,6 +62,7 @@ public class NetworkManagerRTS : NetworkManager
         }
     }
 
+
     public void CheckIfBothPlayersAreReady()
     {
         readyPlayers++;
@@ -52,6 +70,7 @@ public class NetworkManagerRTS : NetworkManager
         if (readyPlayers == 2 && !gameStarted)
         {
             gameStarted = true;
+            Debug.Log("Both players ready, starting game...");
             StartGame();
         }
     }

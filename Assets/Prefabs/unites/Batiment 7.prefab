@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 797870415994000131}
   - component: {fileID: 5435242839167810053}
   - component: {fileID: 3985439619492886614}
-  - component: {fileID: 8937664691951156792}
   - component: {fileID: 3732489302766165913}
+  - component: {fileID: 720479831182085943}
   m_Layer: 0
   m_Name: Batiment 7
   m_TagString: Untagged
@@ -153,21 +153,6 @@ MonoBehaviour:
   unitLayerMask:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &8937664691951156792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6772635409436554901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cde6d653dd0ff640aef400aa111a92f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allyColor: {r: 0, g: 0, b: 1, a: 1}
-  enemyColor: {r: 1, g: 0, b: 0, a: 1}
-  isAlly: 0
 --- !u!50 &3732489302766165913
 Rigidbody2D:
   serializedVersion: 5
@@ -195,3 +180,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &720479831182085943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772635409436554901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3124931230
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

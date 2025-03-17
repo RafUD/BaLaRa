@@ -5,6 +5,13 @@ using System;
 using System.Net;
 using kcp2k;
 
+using UnityEngine;
+using Mirror;
+using Mirror.Discovery;
+using System;
+using System.Net;
+using kcp2k;
+
 public class CustomNetworkDiscovery : NetworkDiscoveryBase<ServerRequest, ServerResponse>
 {
     public NetworkManagerRTS networkManagerRTS;
@@ -13,9 +20,9 @@ public class CustomNetworkDiscovery : NetworkDiscoveryBase<ServerRequest, Server
     {
         return new ServerResponse
         {
-            uri = new Uri($"kcp://{networkManagerRTS.GetComponent<KcpTransport>().Port}"),
+            uri = new Uri($"kcp://127.0.0.1:{networkManagerRTS.GetComponent<KcpTransport>().Port}"), // Force localhost
             serverId = ServerId,
-            ipAddress = endpoint.Address.ToString(),
+            ipAddress = "127.0.0.1",
             port = networkManagerRTS.GetComponent<KcpTransport>().Port,
             currentPlayers = networkManagerRTS.numPlayers,
             maxPlayers = networkManagerRTS.maxConnections
@@ -24,20 +31,34 @@ public class CustomNetworkDiscovery : NetworkDiscoveryBase<ServerRequest, Server
 
     public new void StartDiscovery()
     {
-        base.StartDiscovery();
+        if (networkManagerRTS == null)
+        {
+            networkManagerRTS = FindObjectOfType<NetworkManagerRTS>();
+        }
+
+        if (networkManagerRTS != null)
+        {
+            Debug.Log("Starting network discovery...");
+            base.StartDiscovery();
+        }
+        else
+        {
+            Debug.LogError("NetworkManagerRTS not found!");
+        }
     }
 
     public new void StopDiscovery()
     {
+        Debug.Log("Stopping network discovery...");
         base.StopDiscovery();
     }
 
-    [Obsolete]
     protected override void ProcessResponse(ServerResponse response, IPEndPoint endpoint)
     {
         FindObjectOfType<MainMenu>().OnDiscoveredServer(response);
     }
 }
+
 
 public struct ServerRequest : NetworkMessage { }
 

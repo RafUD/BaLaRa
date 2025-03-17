@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 using TMPro;
+using System;
 
 public class MainMenu : MonoBehaviour
 {
@@ -17,6 +18,16 @@ public class MainMenu : MonoBehaviour
     private ServerResponse discoveredServer;
     private NetworkManagerRTS networkManagerRTS;
     public string selectedLevel;
+
+    public static MainMenu Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     [System.Obsolete]
     void Start()
@@ -66,8 +77,17 @@ public class MainMenu : MonoBehaviour
         statusText.text = "Searching for LAN games...";
         statusText.color = Color.white;
 
-        networkDiscovery.StartDiscovery();
+        if (networkDiscovery != null)
+        {
+            Debug.Log("Starting LAN game discovery...");
+            networkDiscovery.StartDiscovery();
+        }
+        else
+        {
+            Debug.LogError("CustomNetworkDiscovery not assigned in MainMenu!");
+        }
     }
+
 
     public void BackToMainMenuFromJoin()
     {
@@ -113,7 +133,16 @@ public class MainMenu : MonoBehaviour
     public void JoinDiscoveredServer()
     {
         if (discoveredServer.uri != null)
-            networkManagerRTS.StartClient(discoveredServer.uri);
+        {
+            string localUri = discoveredServer.uri.ToString().Replace(discoveredServer.ipAddress, "127.0.0.1");
+            Debug.Log($"[LAN] Connecting to {localUri}");
+
+            NetworkManager.singleton.StartClient(new Uri(localUri));
+        }
+        else
+        {
+            Debug.LogError("[LAN] No valid server URI found.");
+        }
     }
 
     public void OnDiscoveredServer(ServerResponse info)
@@ -124,9 +153,11 @@ public class MainMenu : MonoBehaviour
             statusText.text = $"Game Found at: {info.ipAddress}:{info.port}";
             statusText.color = Color.green;
             joinLANButton.SetActive(true);
+
+            Debug.Log($"[LAN Discovery] Found Server at: {info.ipAddress}:{info.port}");
         }
     }
-    
+
     public void OnSecondPlayerConnected()
     {
         networkManagerRTS.ServerChangeScene(selectedLevel);
