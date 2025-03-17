@@ -3,6 +3,7 @@ using System;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Mirror;
 
 
 public class AudioManager : MonoBehaviour
@@ -32,8 +33,8 @@ public class AudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;
-            s.source.pitch = s.pitch;   
-            s.source.loop = s.loop; 
+            s.source.pitch = s.pitch;
+            s.source.loop = s.loop;
         }
     }
 
@@ -68,35 +69,35 @@ public class AudioManager : MonoBehaviour
     public void ChangeVolume()
     {
         AudioListener.volume = volumeSlider.value;
-        backgroundMusic.Play();
     }
-
-
-using Mirror;
-
-public class AudioManager : NetworkBehaviour
-
-
-{
-    public static AudioManager Instance;
-    public AudioSource backgroundMusic;
-
-    }
-
-
-    private void Awake()
-
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
-
-    [ClientRpc]
-    public void RpcPlayBackgroundMusic()
-    {
-        backgroundMusic.Play();
-    }
-
-
 }
+
+
+//using UnityEngine;
+//using Mirror;
+
+//public class AudioManager : NetworkBehaviour
+//{
+//    public static AudioManager Instance;
+//    public AudioSource backgroundMusic;
+
+//    private void Awake()
+//    {
+//        if (Instance == null)
+//            Instance = this;
+//        else
+//            Destroy(gameObject);
+//    }
+
+//    [ClientRpc]
+//    public void RpcPlayBackgroundMusic()
+//    {
+//        backgroundMusic.Play();
+//    }
+//}
+
+
+
+
+
+

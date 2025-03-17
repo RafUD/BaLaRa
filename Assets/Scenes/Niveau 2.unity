@@ -303,6 +303,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3280050384295696418, guid: 84a05ff55f7afb642a7535b1bcd016ff, type: 3}
+      propertyPath: sceneId
+      value: 1510667224
+      objectReference: {fileID: 0}
     - target: {fileID: 7119368443757625106, guid: 84a05ff55f7afb642a7535b1bcd016ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.009774685
@@ -559,6 +563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 6305823196336923151}
   moveSpeed: 5
+  edgeScrollSpeed: 3
+  edgeThreshold: 20
   startPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1912153224
 GameObject:

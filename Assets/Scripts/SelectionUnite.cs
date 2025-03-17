@@ -32,7 +32,7 @@ public class SelectionUnite : MonoBehaviour
             isSelected = false;
             spriteRenderer.color = Color.white;
                 Debug.Log(gameObject.name + " is deselected!");
-            }
         }
     }
 }
+
