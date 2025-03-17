@@ -22,6 +22,7 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [Command]
+    [System.Obsolete]
     public void CmdSetReady()
     {
         isReady = true;

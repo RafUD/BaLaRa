@@ -13,7 +13,7 @@ public class CustomNetworkDiscovery : NetworkDiscoveryBase<ServerRequest, Server
     {
         return new ServerResponse
         {
-            uri = new Uri($"kcp://{endpoint.Address}:{networkManagerRTS.GetComponent<KcpTransport>().Port}"),
+            uri = new Uri($"kcp://{networkManagerRTS.GetComponent<KcpTransport>().Port}"),
             serverId = ServerId,
             ipAddress = endpoint.Address.ToString(),
             port = networkManagerRTS.GetComponent<KcpTransport>().Port,
@@ -22,23 +22,20 @@ public class CustomNetworkDiscovery : NetworkDiscoveryBase<ServerRequest, Server
         };
     }
 
-    public void StartDiscovery()
+    public new void StartDiscovery()
     {
         base.StartDiscovery();
     }
 
-    public void StopDiscovery()
+    public new void StopDiscovery()
     {
         base.StopDiscovery();
     }
 
+    [Obsolete]
     protected override void ProcessResponse(ServerResponse response, IPEndPoint endpoint)
     {
-        MainMenu mainMenu = FindObjectOfType<MainMenu>();
-        if (mainMenu != null)
-        {
-            mainMenu.OnDiscoveredServer(response);
-        }
+        FindObjectOfType<MainMenu>().OnDiscoveredServer(response);
     }
 }
 

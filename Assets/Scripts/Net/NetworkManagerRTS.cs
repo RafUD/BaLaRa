@@ -10,32 +10,49 @@ public class NetworkManagerRTS : NetworkManager
     private Vector3[] soldierPositions = { new Vector3(-9, -5, 0), new Vector3(13, 4, 0) };
 
     private int readyPlayers = 0;
+    private bool gameStarted = false;
 
+    [System.Obsolete]
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
+        readyPlayers++;
 
-        int playerIndex = numPlayers - 1;
+        Debug.Log($"Player joined. Current players: {readyPlayers}");
 
-        GameObject playerBase = Instantiate(playerBasePrefab, basePositions[playerIndex], Quaternion.identity);
-        PlayerBase baseComponent = playerBase.GetComponent<PlayerBase>();
-        baseComponent.OwnerId = playerIndex;
-        NetworkServer.Spawn(playerBase, conn);
+        // Only start the game if both players are connected
+        if (readyPlayers == 2 && !gameStarted)
+        {
+            gameStarted = true;
+            FindObjectOfType<MainMenu>().OnSecondPlayerConnected();
+        }
+    }
 
-        GameObject soldier = Instantiate(soldierPrefab, soldierPositions[playerIndex], Quaternion.identity);
-        Soldier soldierComponent = soldier.GetComponent<Soldier>();
-        soldierComponent.ownerId = playerIndex;
-        NetworkServer.Spawn(soldier, conn);
+    [System.Obsolete]
+    public void StartGame()
+    {
+        Debug.Log("Starting game, spawning player bases and soldiers...");
+
+        for (int i = 0; i < readyPlayers; i++)
+        {
+            NetworkConnectionToClient conn = NetworkServer.connections[i];
+
+            GameObject playerBase = Instantiate(playerBasePrefab, basePositions[i], Quaternion.identity);
+            NetworkServer.Spawn(playerBase, conn);
+
+            GameObject soldier = Instantiate(soldierPrefab, soldierPositions[i], Quaternion.identity);
+            NetworkServer.Spawn(soldier, conn);
+        }
     }
 
     public void CheckIfBothPlayersAreReady()
     {
         readyPlayers++;
 
-        if (readyPlayers == 2)
+        if (readyPlayers == 2 && !gameStarted)
         {
-            Debug.Log("Both players ready, starting game...");
-            ServerChangeScene(FindObjectOfType<MainMenu>().selectedLevel);
+            gameStarted = true;
+            StartGame();
         }
     }
 }

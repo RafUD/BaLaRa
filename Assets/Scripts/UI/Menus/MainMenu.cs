@@ -15,11 +15,14 @@ public class MainMenu : MonoBehaviour
 
     private CustomNetworkDiscovery networkDiscovery;
     private ServerResponse discoveredServer;
+    private NetworkManagerRTS networkManagerRTS;
     public string selectedLevel;
 
+    [System.Obsolete]
     void Start()
     {
         networkDiscovery = FindObjectOfType<CustomNetworkDiscovery>();
+        networkManagerRTS = FindObjectOfType<NetworkManagerRTS>();
         menuPanel.SetActive(true);
         joinGamePanel.SetActive(false);
         optionsMenu.SetActive(false);
@@ -89,7 +92,7 @@ public class MainMenu : MonoBehaviour
     {
         menuPanel.SetActive(false);
         waitingForPlayerPanel.SetActive(true);
-        NetworkManager.singleton.StartHost();
+        networkManagerRTS.StartHost();
         networkDiscovery.AdvertiseServer();
     }
 
@@ -103,14 +106,14 @@ public class MainMenu : MonoBehaviour
             networkDiscovery.StopDiscovery();
         }
 
-        NetworkManager.singleton.StopHost();
+        networkManagerRTS.StopHost();
     }
 
 
     public void JoinDiscoveredServer()
     {
         if (discoveredServer.uri != null)
-            NetworkManager.singleton.StartClient(discoveredServer.uri);
+            networkManagerRTS.StartClient(discoveredServer.uri);
     }
 
     public void OnDiscoveredServer(ServerResponse info)
@@ -126,7 +129,7 @@ public class MainMenu : MonoBehaviour
     
     public void OnSecondPlayerConnected()
     {
-        NetworkManager.singleton.ServerChangeScene(selectedLevel);
+        networkManagerRTS.ServerChangeScene(selectedLevel);
     }
 
 }
