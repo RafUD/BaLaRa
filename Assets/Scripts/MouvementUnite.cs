@@ -2,17 +2,14 @@ using UnityEngine;
 
 public class MouvementUnite : MonoBehaviour
 {
-    public float moveSpeed = 10f;
+    public float moveSpeed = 5f;
     private Vector2 targetPosition;
-    private bool isMoving = false;
+    private bool isMoving;
     private SelectionUnite selectionUniteScript;
-
-    private Rigidbody2D rb;
 
     private void Start()
     {
         selectionUniteScript = GetComponent<SelectionUnite>();
-        rb = GetComponent<Rigidbody2D>();  
     }
 
     private void Update()
@@ -21,21 +18,18 @@ public class MouvementUnite : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                targetPosition = new Vector2(mouseWorldPosition.x, mouseWorldPosition.y);
+                targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 isMoving = true;
             }
 
             if (isMoving)
             {
-                Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime);
-                rb.MovePosition(newPosition); 
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-                if (Vector2.Distance(rb.position, targetPosition) < 1f) 
-                {
+                if ((Vector2)transform.position == targetPosition)
                     isMoving = false;
-                }
             }
         }
     }
+}
 }

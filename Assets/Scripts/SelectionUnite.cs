@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SelectionUnite : MonoBehaviour
 {
-    public bool isSelected = false;
+    public bool isSelected;
     private SpriteRenderer spriteRenderer;
     private Camera mainCamera;
     public LayerMask unitLayerMask;
@@ -15,34 +15,22 @@ public class SelectionUnite : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))  
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 mouseWorldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Collider2D clickedCollider = Physics2D.OverlapPoint(mouseWorldPosition, unitLayerMask);
 
             if (clickedCollider != null && clickedCollider.gameObject == gameObject)
             {
-                isSelected = !isSelected;  
-
-                if (isSelected)
-                {
-                    spriteRenderer.color = Color.green; 
-                    Debug.Log(gameObject.name + " is selected!");
-                }
-                else
-                {
-                    spriteRenderer.color = Color.white; 
-                    Debug.Log(gameObject.name + " is deselected!");
-                }
+                isSelected = !isSelected;
+                spriteRenderer.color = isSelected ? Color.green : Color.white;
             }
         }
 
-        if (Input.GetMouseButtonDown(1)) 
+        if (Input.GetMouseButtonDown(1) && isSelected)
         {
-            if (isSelected)
-            {
-                isSelected = false;
-                spriteRenderer.color = Color.white;  
+            isSelected = false;
+            spriteRenderer.color = Color.white;
                 Debug.Log(gameObject.name + " is deselected!");
             }
         }

@@ -39,22 +39,19 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-
-
         if (SceneManager.GetActiveScene().name.Equals("Menu"))
         {
             Play("JeuMenu");
         }
         if (SceneManager.GetActiveScene().name.Equals("Jeu Finni"))
         {
-            Play("JeuFinni");   
+            Play("JeuFinni");
         }
         if (SceneManager.GetActiveScene().name.StartsWith("Niveau") || SceneManager.GetActiveScene().name.Equals("Tutoriel"))
         {
             Play("JeuAmbience");
         }
     }
-
 
     public void Play(string name)
     {
@@ -71,6 +68,34 @@ public class AudioManager : MonoBehaviour
     public void ChangeVolume()
     {
         AudioListener.volume = volumeSlider.value;
+        backgroundMusic.Play();
+    }
+
+
+using Mirror;
+
+public class AudioManager : NetworkBehaviour
+
+
+{
+    public static AudioManager Instance;
+    public AudioSource backgroundMusic;
+
+    }
+
+
+    private void Awake()
+
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
+
+    [ClientRpc]
+    public void RpcPlayBackgroundMusic()
+    {
+        backgroundMusic.Play();
     }
 
 
