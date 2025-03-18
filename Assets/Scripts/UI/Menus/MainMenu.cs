@@ -160,7 +160,20 @@ public class MainMenu : MonoBehaviour
 
     public void OnSecondPlayerConnected()
     {
+        Debug.Log("[MainMenu] Second player connected! Changing scene...");
+
+        if (networkManagerRTS == null)
+        {
+            Debug.LogError("[MainMenu] NetworkManagerRTS is missing!");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(selectedLevel))
+        {
+            Debug.LogError("[MainMenu] No level selected! Cannot change scene.");
+            return;
+        }
+
         networkManagerRTS.ServerChangeScene(selectedLevel);
     }
-
 }

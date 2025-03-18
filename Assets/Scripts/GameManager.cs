@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public List<Player> players = new List<Player>();
+    public List<NetworkPlayer> players = new List<NetworkPlayer>();
     public bool gameIsRunning;
 
     private void Awake()
@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour
         gameIsRunning = true;
     }
 
-    public void RegisterPlayer(Player player)
+    public void RegisterPlayer(NetworkPlayer player)
     {
         if (!players.Contains(player))
             players.Add(player);
     }
 
-    public void RemovePlayer(Player player)
+    public void RemovePlayer(NetworkPlayer player)
     {
         if (players.Contains(player))
             players.Remove(player);

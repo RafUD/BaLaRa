@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +6,6 @@ public class NetworkManagerRTS : NetworkManager
 {
     public GameObject playerBasePrefab;
     public GameObject soldierPrefab;
-    public GameObject hudPrefab; // Assign HUD prefab here
 
     public Vector3 playerOneBasePosition;
     public Vector3 playerTwoBasePosition;
@@ -16,6 +15,7 @@ public class NetworkManagerRTS : NetworkManager
     private int readyPlayers = 0;
     private bool gameStarted = false;
 
+    [System.Obsolete]
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         if (conn.identity != null)
@@ -30,21 +30,51 @@ public class NetworkManagerRTS : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, player);
 
         Debug.Log($"[OnServerAddPlayer] Player joined. Current players: {NetworkServer.connections.Count}");
-
+        
         if (NetworkServer.connections.Count == 2 && !gameStarted)
         {
             gameStarted = true;
+            Debug.Log("[NetworkManagerRTS] Second player connected. Starting game...");
             FindObjectOfType<MainMenu>()?.OnSecondPlayerConnected();
         }
     }
+
 
     public override void OnServerSceneChanged(string sceneName)
     {
         base.OnServerSceneChanged(sceneName);
 
-        if (sceneName.StartsWith("Niveau") && readyPlayers == 2)
+        if (sceneName.StartsWith("Niveau"))
         {
-            Debug.Log("Both players are ready, starting the game...");
+            Debug.Log("Level scene loaded. Waiting for players to confirm loading...");
+        }
+    }
+
+    public override void ServerChangeScene(string newSceneName)
+    {
+        if (string.IsNullOrEmpty(newSceneName))
+        {
+            Debug.LogError("[NetworkManagerRTS] Cannot change to an empty scene name.");
+            return;
+        }
+
+        Debug.Log($"[NetworkManagerRTS] Changing scene to: {newSceneName}");
+
+        base.ServerChangeScene(newSceneName);
+    }
+
+
+    [Server]
+    public void PlayerFinishedLoading(NetworkConnectionToClient conn)
+    {
+        readyPlayers++;
+
+        Debug.Log($"[NetworkManagerRTS] Player {conn.connectionId} finished loading. Total ready players: {readyPlayers}");
+
+        if (readyPlayers == 2 && !gameStarted)
+        {
+            gameStarted = true;
+            Debug.Log("[NetworkManagerRTS] Both players are ready! Starting the game...");
             Invoke(nameof(StartGame), 1.0f);
         }
     }
@@ -59,7 +89,7 @@ public class NetworkManagerRTS : NetworkManager
         {
             if (conn.identity == null)
             {
-                Debug.LogWarning($"Skipping player {conn.connectionId}: NetworkIdentity is null or destroyed.");
+                Debug.LogWarning($"Skipping player {conn.connectionId}: NetworkIdentity is null.");
                 continue;
             }
 
@@ -89,17 +119,5 @@ public class NetworkManagerRTS : NetworkManager
         }
 
         base.OnServerDisconnect(conn);
-    }
-
-    public void CheckIfBothPlayersAreReady()
-    {
-        readyPlayers++;
-
-        if (readyPlayers == 2 && !gameStarted)
-        {
-            gameStarted = true;
-            Debug.Log("Both players ready, starting game...");
-            StartGame();
-        }
     }
 }

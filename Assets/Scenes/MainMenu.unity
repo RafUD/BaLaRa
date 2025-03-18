@@ -545,7 +545,6 @@ MonoBehaviour:
   playerBasePrefab: {fileID: 3811720651201778518, guid: 9021953deec7ae24389c2287e5213d12, type: 3}
   soldierPrefab: {fileID: 3160093665466637624, guid: 6373b7884afd9674186f4e26bd93b65c, type: 3}
   hudPrefab: {fileID: 217618662991914183, guid: b47b56560ae47ba4b84208c5f05adfdd, type: 3}
-  cameraPrefab: {fileID: 95815571849930856, guid: 1af05298f93197b459c864a186eca6c2, type: 3}
   playerOneBasePosition: {x: -14.58118, y: -4.860315, z: 0.1064779}
   playerTwoBasePosition: {x: 16.65, y: 3.09, z: 0.1064779}
   playerOneSoldierPosition: {x: -12.54218, y: -4.945228, z: 0.07739695}

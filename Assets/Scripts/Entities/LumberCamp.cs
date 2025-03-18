@@ -34,7 +34,7 @@ public class LumberCamp : Building
 
         WoodStorage += amount;
 
-        if (playerIdentity.TryGetComponent(out Player player))
+        if (playerIdentity.TryGetComponent(out NetworkPlayer player))
         {
             player.CmdGatherResources("wood", amount);
             RpcNotifyWoodStorage(player.playerId, amount);

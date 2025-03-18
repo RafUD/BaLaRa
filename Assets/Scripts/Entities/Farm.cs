@@ -32,7 +32,7 @@ public class Farm : Building
     {
         if (!IsConstructed) return;
 
-        if (playerIdentity.TryGetComponent(out Player player))
+        if (playerIdentity.TryGetComponent(out NetworkPlayer player))
         {
             player.CmdGatherResources("food", FoodProductionRate);
             RpcNotifyHarvest(player.playerId);

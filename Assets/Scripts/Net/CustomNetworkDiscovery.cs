@@ -13,7 +13,7 @@ public class CustomNetworkDiscovery : NetworkDiscoveryBase<ServerRequest, Server
     {
         return new ServerResponse
         {
-            uri = new Uri($"kcp://127.0.0.1:{networkManagerRTS.GetComponent<KcpTransport>().Port}"), // Force localhost
+            uri = new Uri($"kcp://127.0.0.1:{networkManagerRTS.GetComponent<KcpTransport>().Port}"),
             serverId = ServerId,
             ipAddress = "127.0.0.1",
             port = networkManagerRTS.GetComponent<KcpTransport>().Port,
