@@ -33,10 +33,10 @@ public class NetworkPlayer : NetworkBehaviour
     {
         while (!SceneManager.GetActiveScene().isLoaded)
         {
-            yield return null; // Wait for scene to be fully loaded
+            yield return null;
         }
 
-        yield return new WaitForSeconds(1f); // Give extra time for network to stabilize
+        yield return new WaitForSeconds(1f);
 
         Debug.Log($"[NetworkPlayer] Scene loaded for player {connectionToClient.connectionId}. Notifying server...");
         CmdNotifyServerPlayerLoaded();
@@ -64,22 +64,19 @@ public class NetworkPlayer : NetworkBehaviour
 
         LocalPlayer = this;
         Debug.Log($"[OnStartLocalPlayer] Local Player Initialized: {gameObject.name}");
-
-        // Register the player in GameManager
+        
         GameManager.Instance?.RegisterPlayer(this);
-
-        // Update UI resources
+        
         if (UIManager.Instance != null)
         {
             UIManager.Instance.UpdateResources(wood, food);
-            UIManager.Instance.InitializeHUD(); // ✅ Initialize HUD after resources are set
+            UIManager.Instance.InitializeHUD();
         }
         else
         {
             Debug.LogError("[OnStartLocalPlayer] UIManager instance is missing, HUD cannot be created!");
         }
-
-        // Activate Camera for the Local Player
+        
         if (playerCamera != null)
         {
             playerCamera.gameObject.SetActive(true);
